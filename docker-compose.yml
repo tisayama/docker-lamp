@@ -5,14 +5,15 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: pass
     volumes:
-      - db:/var/lib/mysql
+      - ./db:/var/lib/mysql
   php:
-    build: ./php
+    build: 
+      context: ./php
+      args:
+        WEBROOT: /var/www/homepage
     ports:
-      - '80:80'
+      - '127.0.0.1:80:80'
     volumes:
-      - ./html:/var/www/html
+      - ../:/var/www/
     depends_on:
       - mysql
-volumes:
-  db:
